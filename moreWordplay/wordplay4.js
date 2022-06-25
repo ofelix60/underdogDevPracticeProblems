@@ -25,4 +25,3 @@ const shortestWithPrefixSuffix = filteredArr.reduce(
 const shortestWithPrefixSuffixArray = filteredArr.filter(
 	word => word.length === shortestWithPrefixSuffix
 );
-console.log(shortestWithPrefixSuffixArray);
