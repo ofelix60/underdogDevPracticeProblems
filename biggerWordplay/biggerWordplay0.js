@@ -10,6 +10,7 @@ const fileReader = function (filepath) {
 
 const scrabbleWordsArray = fileReader('sowpods.txt');
 
+
 function hasDuplicates(str) {
     let letterContainer = {}
     for (let char of str) {
@@ -30,6 +31,6 @@ function hasDuplicates(str) {
 
 const wordsNoDuplicate = scrabbleWordsArray.filter(el => !hasDuplicates(el))
 const wordsNoDuplicatedLength = wordsNoDuplicate.reduce((a, b) =>  a.length > b.length ? a : b).length;
-const longestWordNoDupe = wordsNoDuplicate.filter(el => el.length === wordsNoDuplicatedLength)
+const longestWordNoDupe = wordsNoDuplicate.filter(el => el.length === wordsNoDuplicatedLength);
 
 console.log(longestWordNoDupe); // [ 'DERMATOGLYPHICS', 'UNCOPYRIGHTABLE' ]

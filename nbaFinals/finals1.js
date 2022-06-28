@@ -12,13 +12,6 @@ const finalsObjArr = fileReader('nba_finals.csv').map(el => {
 
 
 function yearsTeamHasWon (team) {
-	// return test.filter(final =>{
-	// 		if	(final.winner.toLowerCase().includes(team.toLowerCase())) {
-	// 			return final.year
-	// 		}
-	// })
-
-
 	let years = []
 	for (let final of finalsObjArr) {
 		if (final.winner.toLowerCase().includes(team.toLowerCase())) {

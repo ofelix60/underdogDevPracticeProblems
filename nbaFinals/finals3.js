@@ -3,42 +3,49 @@
     - 3 times: Shaquille O'Neal, LeBron James
     - 2 times: <etc>
 */
+
 const fs = require('fs');
 
 const fileReader = function (filepath) {
 	return fs.readFileSync(filepath, 'utf8').toString().trim().split(/\r\n/);
 };
+
 const finalsObjArr = fileReader('nba_finals.csv').map(el => {
 	[year, winner, loser, score, mvp] = el.split(',');
 	return { year, winner, loser, score, mvp };
 });
 
 function findMultMvpWinners () {
-    let mvp = {}
+    const playersTotalMVPs= {}
     // maps number of mvps that won mult time
-    let mvpFormatted = {}
+    const unorderedMVPWins = {}
+    const orderedMVPWins = []
+
     // maps every year's 
     for (let final of finalsObjArr) {
-        if (final.mvp.length > 1) {
-            mvp[final.mvp] = (mvp[final.mvp] || 0) + 1;
+        if (final.mvp !== '') {
+          const player = final.mvp;
+          if (playersTotalMVPs[player]) {
+            playersTotalMVPs[player] += 1;
+          } else {
+            playersTotalMVPs[player] = 1;
+          }
         }
     }
-    Object.entries(mvp).forEach(el => {
+
+    Object.entries(playersTotalMVPs).forEach(el => {
         if (el[1] > 1) {
-            if(!(el[1] in mvpFormatted)) {
-                mvpFormatted[el[1]] = []
+            if(!(el[1] in unorderedMVPWins)) {
+                unorderedMVPWins[el[1]] = []
             } 
-            mvpFormatted[el[1]].push(el[0])
+            unorderedMVPWins[el[1]].push(el[0])
         }
     })
-    return Object.entries(mvpFormatted).forEach(player => {
-        if(player)
-        console.log(`${player[0]} Times : ${player[1]}`);
-    })
-
+     Object.entries(unorderedMVPWins).forEach(group => orderedMVPWins.push(group))
+    console.log();
 }
+findMultMvpWinners()
 
-console.log(findMultMvpWinners());
 
 
 const finalsObjArr2 = [

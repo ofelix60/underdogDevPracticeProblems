@@ -14,9 +14,6 @@ const finalsObjArr = fileReader('nba_finals.csv').map(el => {
 });
 
 function thisYearsWinner(year) {
-	// return finalsObj.filter(obj => {
-	// 	if (+obj.year === year) return obj.winner;
-	// })[0].winner;
 	for (let final of finalsObjArr) {
 		if (+final.year === year) {
 			return final.winner;

@@ -10,8 +10,37 @@ const billboardChartObjArr = fileReader('billboard100_2000.csv').map(el => {
 	return { rank, song, artist, lastWeek, peakRank, weeksOnBoard, date };
 });
 
-// const something = billboardChartObjArr.filter(position => position.)
-const something = [...new Set(billboardChartObjArr.map(item => item.song))]
+function tallyOfSongsByArtist(arr) {
+	// makes and populates obj with artist number of songs and array of those songs. returns obj
+	const frequencyCounter = {};
+	for (let stat of arr) {
+		if (!frequencyCounter[stat.artist]) {
+			frequencyCounter[stat.artist] = [0, [], []]; // store more data.
+		}
+		if (!frequencyCounter[stat.artist][1].includes(stat.song)) {
+			frequencyCounter[stat.artist][0] += 1;
+			frequencyCounter[stat.artist][1].push(stat.song);
+			frequencyCounter[stat.artist][2].push(stat);
+		}
+	}
+	return frequencyCounter;
+}
 
-// console.log(billboardChartObjArr);
-console.log(something);
+console.log(tallyOfSongsByArtist(billboardChartObjArr));
+
+function artistWithMostSongsFinder(obj) {
+	let numberToBeat = 0;
+	let container = [];
+	Object.entries(obj).forEach(el => {
+		if (el[1][1].length > numberToBeat) {
+			numberToBeat = el[1][1].length;
+			container = [];
+			container.push(el);
+		}
+	});
+	console.log(
+		`${container[0][0]} had the most songs chart in the year 2000. The songs were ${container[0][1][1]}`
+	);
+}
+
+// artistWithMostSongsFinder(tallyOfSongsByArtist(billboardChartObjArr));
